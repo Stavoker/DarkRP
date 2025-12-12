@@ -1,0 +1,101 @@
+.react-paginate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.react-paginate-page {
+  display: inline-block;
+}
+
+.react-paginate-page-link {
+  display: inline-block;
+  padding: 4px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+}
+
+.react-paginate-page-link:hover {
+  color: var(--color-accent-primary);
+}
+
+.react-paginate-active .react-paginate-page-link {
+  color: var(--color-accent-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.react-paginate-active .react-paginate-page-link:hover {
+  opacity: 0.8;
+}
+
+.react-paginate-page:has(+ .react-paginate-active) .react-paginate-page-link {
+  text-decoration: underline;
+}
+
+.react-paginate-page:has(+ .react-paginate-active) .react-paginate-page-link:hover {
+  opacity: 0.8;
+}
+
+.react-paginate-page.previous-page .react-paginate-page-link {
+  text-decoration: underline;
+}
+
+.react-paginate-page.previous-page .react-paginate-page-link:hover {
+  opacity: 0.8;
+}
+
+.react-paginate-previous,
+.react-paginate-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.react-paginate-previous-link,
+.react-paginate-next-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.react-paginate-previous-link:hover,
+.react-paginate-next-link:hover {
+  opacity: 0.8;
+}
+
+.react-paginate-disabled .react-paginate-previous-link,
+.react-paginate-disabled .react-paginate-next-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.react-paginate-break {
+  display: inline-block;
+}
+
+.react-paginate-break-link {
+  display: inline-block;
+  padding: 0;
+  color: var(--color-text-primary);
+  cursor: default;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+}
