@@ -98,7 +98,7 @@ function Profile() {
               <p className="text-[14px] xl:text-[18px] font-medium w-full max-w-[100px]">Reason</p>
             </div>
 
-            <ul className="grid gap-[20px] xl:overflow-y-auto xl:max-h-[670px] xl:-mr-[25px] xl:pb-[22px] max-xl:min-w-[505px]">
+            <ul className="grid gap-[20px] xl:overflow-y-auto xl:max-h-[670px] xl:-mr-[25px] xl:pr-[20px] xl:pb-[22px] max-xl:min-w-[505px]">
               {Array.from({ length: 100 }).map((_, index) => (
                 <li
                   key={index}

@@ -30,7 +30,7 @@ function TokensLeaderboard() {
       <PageHeader title="Tokens" text="Leaderboard" onSearchChange={handleSearchChange} searchValue={searchValue} />
 
       <div className="max-xl:overflow-x-auto max-xl:mb-[20px]">
-        <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px] xl:py-[25px] xl:px-[35px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
+        <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px] xl:py-[25px] xl:px-[35px] xl:pr-[103px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
           <p className="">Position</p>
           <p className="xl:min-w-[300px] min-w-[210px]">Player</p>
           <p className="">Amount</p>
