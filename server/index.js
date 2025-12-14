@@ -68,7 +68,7 @@ app.use('/api/staff', staffRoutes);
 app.use('/api/earners', earnersRoutes);
 
 // Start server
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`📊 API endpoints available at http://0.0.0.0:${PORT}/api`);
+  console.log(`📊 API endpoints available at http://localhost:${PORT}/api`);
 });
