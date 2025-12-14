@@ -53,7 +53,7 @@ export const rulesDataCategories = [
 ];
 
 export const navigationPages = [
-  { id: 'administration-staff', title: 'Administration and Staff Shelves' },
+  { id: 'administration-staff', title: 'Administration and Staff Shelves', page: 'administration-staff' },
   { id: 'how-sits-work', title: 'How Sits Work' },
   { id: 'want-to-join-staff', title: 'Want to join the Staff Team?' },
   { id: 'rules', title: 'Rules' },

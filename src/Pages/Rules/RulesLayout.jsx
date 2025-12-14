@@ -5,7 +5,8 @@ import { navigationPages, rulesDataCategories } from './rulesData';
 
 function RulesLayout() {
   const location = useLocation();
-  const currentPath = location.pathname.split('/').pop() || 'rules';
+  const currentPath = location.pathname.split('/').pop().replace(/-/g, ' ').toLowerCase();
+  console.log('🚀 ~ RulesLayout ~ currentPath:', currentPath);
   const [openCategories, setOpenCategories] = useState(new Set());
 
   const toggleCategory = (categoryId, e) => {
@@ -113,16 +114,17 @@ function RulesLayout() {
           </h3>
           <nav className="flex flex-col gap-[10px]">
             {navigationPages.map((page) => {
-              const isActive = currentPath === page.id;
+              const isActive = currentPath === page.id.replace(/-/g, ' ').toLowerCase();
               return (
                 <Link
                   key={page.id}
                   to={`/rules/${page.id}`}
                   className={`text-[16px] transition-colors xl:border-l-4 border-l-2 pl-[2px] ${
-                    isActive
+                    page.page === page.id
                       ? 'text-[#40A6EE] border-[#40A6EE]'
-                      : 'text-accent-primary hover:text-[#40A6EE] hover:border-[#40A6EE]'
-                  }`}
+                      : 'text-accent-primary border-accent-primary hover:text-text-primary hover:border-accent-primary'
+                  }
+                    ${isActive ? 'text-text-primary border-accent-primary' : ''}`}
                 >
                   {page.title}
                 </Link>

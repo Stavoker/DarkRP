@@ -1,9 +1,3 @@
-// function TokensLeaderboard() {
-//   return <div>Tokens Leaderboard</div>;
-// }
-
-// export default TokensLeaderboard;
-
 import { useState } from 'react';
 import PageHeader from '../../Components/PageHeader/PageHeader';
 import Pagination from '../../Components/Pagination/Pagination';

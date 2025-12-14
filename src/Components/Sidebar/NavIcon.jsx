@@ -1,6 +1,7 @@
 function NavIcon({ iconId, isOpen, isActive }) {
   const isGangs = iconId === 'gangs';
-  const baseClasses = `w-6 h-6 ${isOpen ? 'mr-[35px]' : ''} shrink-0 transition-colors`;
+  const filterClasses = isActive ? 'filter-neon' : 'filter-neon-hover';
+  const baseClasses = `w-6 h-6 ${isOpen ? 'mr-[35px]' : ''} shrink-0 transition-colors transition-all ${filterClasses}`;
 
   const colorClasses = isActive
     ? isGangs

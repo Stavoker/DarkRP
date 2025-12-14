@@ -2,7 +2,7 @@ function PageHeader({ title, text, placeholder = 'Search Record...', onSearchCha
   return (
     <div className="flex items-center max-xl:flex-col max-xl:items-start max-xl:p-[20px] xl:mb-[35px]">
       <p className="flex items-center mb-[20px] xl:mb-0 xl:gap-[10px] text-text-primary xl:text-[40px] text-[20px] font-medium">
-        {title}{' '}
+        {title}
         {text && <span className="text-accent-primary xl:text-[40px] text-[20px] font-medium ml-[3px]">{text}</span>}
       </p>
       <div className="xl:flex xl:items-center xl:justify-center w-full">

@@ -5,8 +5,8 @@ import { navItems } from './navItems';
 import SidebarLogo from './SidebarLogo';
 
 const SIDEBAR_BASE_CLASSES =
-  'fixed left-0 shadow-neon top-0 bg-background-sidebar transition-all duration-300 flex flex-col overflow-x-hidden';
-const NAV_CLASSES = 'flex items-start pt-[50px] overflow-y-auto overflow-x-hidden flex-1 min-h-0 xl:pt-[115px]';
+  'fixed z-12 left-0 shadow-neon top-0 bg-background-sidebar transition-all duration-300 flex flex-col overflow-x-hidden';
+const NAV_CLASSES = 'flex items-start pt-[50px] overflow-y-auto overflow-x-hidden flex-1 min-h-0 xl:pt-[50px]';
 const NAV_CONTAINER_CLASSES = 'flex flex-col w-full gap-[20px] min-w-0 pb-[20px]';
 
 function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
@@ -14,6 +14,7 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
   const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
   const location = useLocation();
   const sidebarRef = useRef(null);
+  const hoverTimeoutRef = useRef(null);
 
   const isActive = (path) => {
     if (path === '/') {
@@ -22,31 +23,15 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
     return location.pathname.startsWith(path);
   };
 
-  const handleLinkClick = (e, itemPath) => {
+  const handleLinkClick = () => {
     if (isMobileMenuOpen && onCloseMobileMenu) {
       onCloseMobileMenu();
       return;
     }
 
-    if (itemPath === '/leaderboard' && !isOpen) {
-      e.preventDefault();
-      setIsOpen(true);
-      return;
-    }
-
-    if (itemPath === '/leaderboard' && isOpen) {
-      setIsOpen(false);
-      return;
-    }
-
-    if (!isOpen) {
-      e.preventDefault();
-      setIsOpen(true);
-      return;
-    }
-
-    if (isOpen && itemPath !== '/leaderboard') {
-      setIsOpen(false);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
     }
   };
 
@@ -111,8 +96,47 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
     }
   };
 
+  const handleMouseEnter = () => {
+    if (!isMobileMenuOpen) {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = null;
+      }
+      setIsOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobileMenuOpen) {
+      hoverTimeoutRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 200);
+    }
+  };
+
+  const handleMouseDown = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <aside ref={sidebarRef} className={sidebarClasses}>
+    <aside
+      ref={sidebarRef}
+      className={sidebarClasses}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+    >
       <SidebarLogo isOpen={sidebarIsOpen} onLogoClick={handleLogoClick} />
 
       <nav className={NAV_CLASSES}>
@@ -130,7 +154,7 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
                 isHovered={isHovered}
                 onMouseEnter={() => item.hasSubmenu && sidebarIsOpen && setHoveredSubmenu(item.path)}
                 onMouseLeave={() => setHoveredSubmenu(null)}
-                onLinkClick={(e) => handleLinkClick(e, item.path)}
+                onLinkClick={handleLinkClick}
                 isActivePath={isActive}
               />
             );

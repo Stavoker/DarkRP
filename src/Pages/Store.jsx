@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Checkbox from '../Components/Checkbox/Checkbox';
 import Input from '../Components/Input/Input';
 import TabButton from './Store/TabButton';
@@ -11,6 +11,61 @@ function Store() {
   const [tokens, setTokens] = useState('100');
   const [gbp, setGbp] = useState('15');
   const [agreed, setAgreed] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef(null);
+  const animationFrameRef = useRef(null);
+
+  const minTokens = 0;
+  const maxTokens = 1000;
+
+  const updateSliderValue = useCallback((clientX) => {
+    if (!sliderRef.current) return;
+    const rect = sliderRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, x / rect.width));
+    const newValue = Math.round(percentage * (maxTokens - minTokens) + minTokens);
+    return newValue;
+  }, []);
+
+  const handleSliderMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+    const newValue = updateSliderValue(e.clientX);
+    setTokens(newValue.toString());
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e) => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+
+      animationFrameRef.current = requestAnimationFrame(() => {
+        const newValue = updateSliderValue(e.clientX);
+        setTokens(newValue.toString());
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isDragging, updateSliderValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +77,7 @@ function Store() {
     <div>
       <h1 className="flex items-center mb-0 xl:gap-[10px] text-text-primary xl:text-[40px] text-[20px] font-medium max-xl:px-[20px] max-xl:pt-[20px] ">
         Buy
-        <span className="text-accent-primary xl:text-[30px] text-[20px] font-medium ml-[5px]">Tokens</span>
+        <span className="text-accent-primary xl:text-[40px] text-[20px] font-medium ml-[3px]">Tokens</span>
       </h1>
 
       <p className="text-text-secondary xl:text-[28px] text-[18px] mb-[40px] max-xl:px-[20px]">
@@ -30,8 +85,8 @@ function Store() {
         logged in your steamid will automatically be input.
       </p>
 
-      <div className="flex flex-col xl:flex-row items-center xl:gap-[50px] gap-[40px]">
-        <div className="order-3 xl:order-1 max-xl:w-full max-xl:px-[20px] max-xl:mb-[45px]">
+      <div className="flex flex-col xl:flex-row xl:gap-[50px] gap-[40px] xl:mb-[80px] mb-[40px]">
+        <div className="order-3 xl:order-1 max-xl:w-full max-xl:px-[20px] max-xl:mb-[45px] xl:mt-[30px]">
           <h2 className="xl:text-[#828383] text-[#B1B1B1] xl:text-[28px] text-[18px] font-medium xl:mb-[20px] mb-[10px]">
             Recent Payments
           </h2>
@@ -114,6 +169,32 @@ function Store() {
               </p>
             </div>
 
+            <div className="relative xl:mb-[40px] mb-[30px]">
+              <div
+                ref={sliderRef}
+                className="relative h-[4px] bg-[#9595954d] rounded-full cursor-pointer"
+                onMouseDown={handleSliderMouseDown}
+                onClick={(e) => {
+                  const newValue = updateSliderValue(e.clientX);
+                  setTokens(newValue.toString());
+                }}
+              >
+                <div
+                  className="absolute h-full bg-accent-primary rounded-full"
+                  style={{ width: `${((Number(tokens) || 0) / maxTokens) * 100}%` }}
+                />
+                <div
+                  className={`absolute top-1/2 -translate-y-1/2 w-[16px] h-[16px] bg-accent-primary rounded-full cursor-pointer ${
+                    isDragging ? 'scale-110' : 'hover:scale-110'
+                  }`}
+                  style={{
+                    left: `calc(${Math.max(0, Math.min(100, ((Number(tokens) || 0) / maxTokens) * 100))}% - 8px)`,
+                    transition: isDragging ? 'none' : 'transform 0.2s',
+                  }}
+                />
+              </div>
+            </div>
+
             {/* Disclaimer Checkbox */}
             <div className="flex items-center justify-center xl:mb-[40px] mb-[30px]">
               <Checkbox
@@ -126,30 +207,52 @@ function Store() {
             </div>
 
             {/* PayPal Button */}
-            <button
-              type="submit"
-              disabled={!agreed}
-              className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed relative overflow-hidden"
-            >
-              <div
-                className={`absolute inset-0 rounded-[8px] transition-opacity ${!agreed ? 'opacity-[0.3]' : 'opacity-100'}`}
-                style={
-                  !agreed
-                    ? { background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)' }
-                    : { background: '#2DA172' }
-                }
-              />
-              <div className="relative z-10 flex items-center justify-center gap-[12px]">
-                <div className="w-[30px] h-[30px] rounded-[4px] flex items-center justify-center">
-                  <img src="/img/icons/paypal.svg" alt="Paypal" className="" />
+            <div className="flex flex-col gap-[10px]">
+              <button
+                type="submit"
+                disabled={!agreed}
+                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed relative overflow-hidden"
+              >
+                <div
+                  className={`absolute inset-0 rounded-[8px] transition-opacity ${!agreed ? 'opacity-[0.3]' : 'opacity-100'}`}
+                  style={
+                    !agreed
+                      ? { background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)' }
+                      : { background: '#2DA172' }
+                  }
+                />
+                <div className="relative z-10 flex items-center justify-center gap-[12px]">
+                  <div className="w-[30px] h-[30px] rounded-[4px] flex items-center justify-center">
+                    <img src="/img/icons/paypal.svg" alt="Paypal" className="" />
+                  </div>
+                  Pay with PayPal
                 </div>
-                Pay with PayPal
-              </div>
-            </button>
+              </button>
+
+              <button
+                type="button"
+                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed relative overflow-hidden"
+              >
+                <div
+                  className={`absolute inset-0 rounded-[8px] transition-opacity ${!agreed ? 'opacity-[0.3]' : 'opacity-100'}`}
+                  style={
+                    !agreed
+                      ? { background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)' }
+                      : { background: '#2DA172' }
+                  }
+                />
+                <div className="relative z-10 flex items-center justify-center gap-[12px]">
+                  <div className=" rounded-[4px] flex items-center justify-center">
+                    <img src="/img/icons/stripe.svg" alt="Stripe" className="w-[65px] h-[27px]" />
+                  </div>
+                  Pay with Stripe
+                </div>
+              </button>
+            </div>
           </form>
         </div>
 
-        <div className="flex flex-row xl:flex-col xl:gap-[35px] xl:mt-[30px] max-xl:px-[20px] max-xl:w-full xl:min-w-[171px] *:h-[36px] *:text-center xl:*:text-[20px] *text-[16px] *:font-medium *:cursor-pointer *:items-center xl:*:justify-center justify-between *:rounded-[6px] order-1 xl:order-3">
+        <div className="flex flex-row xl:flex-col xl:gap-[35px] xl:mt-[30px] max-xl:px-[20px] max-xl:w-full xl:min-w-[171px] *:h-[36px] *:text-center xl:*:text-[20px] *text-[16px] *:font-medium *:cursor-pointer *:items-center xl:*:justify-center *:rounded-[6px] order-1 xl:order-3">
           <TabButton
             tabId="tokens"
             activeTab={activeTab}

@@ -47,21 +47,14 @@ function Shelves() {
           ))}
         </div>
 
-        <div className="flex flex-col xl:items-end xl:text-right space-y-[5px] xl:min-w-[130px] xl:mb-[24px] xl:mt-[50px] order-2 xl:order-3 max-xl:px-[20px]">
-          <p className="text-text-secondary xl:text-[28px] text-[18px] font-medium xl:mb-[29px] mb-[10px]">Actions</p>
+        <div className="flex flex-col xl:items-end xl:text-right space-y-[5px] xl:min-w-[250px] xl:mb-[24px] xl:mt-[50px] order-2 xl:order-3 max-xl:px-[20px]">
+          <p className="text-text-secondary xl:text-[28px] text-[18px] font-medium xl:mb-[29px] mb-[10px]">Filters</p>
 
           <div className="max-xl:flex max-xl:flex-row max-xl:justify-between max-xl:items-center max-xl:gap-[10px] space-y-[5px]">
-            <p className="flex items-center gap-[10px] text-accent-primary xl:text-[22px] text-[16px] font-medium max-xl:mb-[10px] mb-[17px]">
-              <img src="/img/icons/hamburger.svg" alt="List" className="w-[14px] h-[14px] xl:w-[24px] xl:h-[24px]" />
-              List view
-            </p>
-            <p className="flex items-center gap-[10px] text-accent-primary xl:text-[22px] text-[16px] font-medium mb-[17px]">
-              <img src="/img/icons/tag.svg" alt="Tags" className="w-[14px] h-[14px] xl:w-[24px] xl:h-[24px]" /> View
-              tags
-            </p>
-            <p className="flex items-center gap-[10px] text-accent-primary xl:text-[22px] text-[16px] font-medium mb-[17px]">
-              <img src="/img/icons/filter.svg" alt="Sort" className="w-[14px] h-[14px] xl:w-[24px] xl:h-[24px]" /> Sort
-            </p>
+            <p className="text-accent-primary xl:text-[22px] text-[16px] font-medium mb-[10px]">The default</p>
+            <p className="text-accent-primary xl:text-[22px] text-[16px] font-medium mb-[10px]">By name</p>
+            <p className="text-accent-primary xl:text-[22px] text-[16px] font-medium mb-[10px]">By creation date</p>
+            <p className="text-accent-primary xl:text-[22px] text-[16px] font-medium mb-[10px]">By update date</p>
           </div>
         </div>
       </div>
