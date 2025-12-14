@@ -5,7 +5,7 @@
     "buildCommand": "echo 'Building Node.js server'"
   },
   "deploy": {
-    "startCommand": "npm start",
+    "startCommand": "node server/index.js",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }

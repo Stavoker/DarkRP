@@ -4,7 +4,6 @@ import mysql from 'mysql2/promise';
 
 dotenv.config();
 
-// Конфигурация для всех баз данных
 const databases = {
   tokens: {
     host: process.env.DB_HOST,
@@ -46,7 +45,6 @@ const databases = {
     connectionLimit: 10,
     queueLimit: 0,
     connectTimeout: 10000,
-    acquireTimeout: 10000,
   },
 };
 
