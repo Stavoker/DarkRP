@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
-import { AuthProvider } from './contexts/AuthProvider.jsx';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import Sidebar from './Components/Sidebar/Sidebar';
+import { AuthProvider } from './contexts/AuthProvider.jsx';
 import AuthError from './Pages/AuthError';
 import AuthSuccess from './Pages/AuthSuccess';
 import Bans from './Pages/Bans';
