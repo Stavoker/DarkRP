@@ -79,6 +79,9 @@ app.get('/api/health', async (req, res) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+
+// Log routes on startup
+console.log('📋 Auth routes loaded:', !!authRoutes);
 app.use('/api/store', storeRoutes);
 app.use('/api/paypal', paypalRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);

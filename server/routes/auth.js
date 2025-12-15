@@ -6,11 +6,16 @@ import db from '../config/databases.js';
 const router = express.Router();
 const STEAM_OPENID_URL = 'https://steamcommunity.com/openid';
 
+router.get('/test', (req, res) => {
+  res.json({ message: 'Auth routes are working', timestamp: new Date().toISOString() });
+});
+
 router.get('/steam', async (req, res) => {
   try {
-    const hostHeader = req.get('host') || 'localhost:3001';
+    const hostHeader = req.get('host') || process.env.RAILWAY_PUBLIC_DOMAIN || 'localhost:3001';
     const isLocalhost = hostHeader.includes('localhost') || hostHeader.includes('127.0.0.1');
-    const protocol = isLocalhost ? 'http' : req.protocol || 'https';
+    const protocol =
+      req.protocol === 'https' || req.get('x-forwarded-proto') === 'https' || !isLocalhost ? 'https' : 'http';
     const host = process.env.BACKEND_URL?.replace(/^https?:\/\//, '') || hostHeader;
     const returnUrl = `${protocol}://${host}/api/auth/steam/return`;
 
@@ -35,9 +40,10 @@ router.get('/steam', async (req, res) => {
 
 router.get('/steam/return', async (req, res) => {
   try {
-    const hostHeader = req.get('host') || 'localhost:3001';
+    const hostHeader = req.get('host') || process.env.RAILWAY_PUBLIC_DOMAIN || 'localhost:3001';
     const isLocalhost = hostHeader.includes('localhost') || hostHeader.includes('127.0.0.1');
-    const protocol = isLocalhost ? 'http' : req.protocol || 'https';
+    const protocol =
+      req.protocol === 'https' || req.get('x-forwarded-proto') === 'https' || !isLocalhost ? 'https' : 'http';
     const host = process.env.BACKEND_URL?.replace(/^https?:\/\//, '') || hostHeader;
     const returnUrl = `${protocol}://${host}/api/auth/steam/return`;
     const relyingParty = new openid.RelyingParty(returnUrl, null, true, true, []);
