@@ -34,7 +34,7 @@ function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, onPageC
   }, [currentPage]);
 
   return (
-    <div className={`flex items-center justify-between xl:justify-center xl:mb-[80px] mb-[25px]`}>
+    <div className={`flex items-center xl:justify-between justify-center xl:mb-[80px] mb-[45px]`}>
       {/* Left side - Results info */}
 
       {totalItems > 0 && (

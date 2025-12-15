@@ -1,13 +1,97 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import Breadcrumbs from './Breadcrumbs';
+import RulesBreadcrumbs from './Breadcrumbs';
 import { navigationPages, rulesDataCategories } from './rulesData';
 
 function RulesLayout() {
   const location = useLocation();
-  const currentPath = location.pathname.split('/').pop().replace(/-/g, ' ').toLowerCase();
-  console.log('🚀 ~ RulesLayout ~ currentPath:', currentPath);
+  const currentPath = location.pathname.split('/').pop()?.replace(/-/g, ' ').toLowerCase() || '';
   const [openCategories, setOpenCategories] = useState(new Set());
+  const [activeSections, setActiveSections] = useState(new Set());
+  const [activeSubSections, setActiveSubSections] = useState(new Set());
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-150px 0px 0px 0px',
+      threshold: 0,
+    };
+
+    const observerCallback = (entries) => {
+      setActiveSections((prevSections) => {
+        const newSections = new Set(prevSections);
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          const isMainSection = rulesDataCategories.some((cat) => cat.id === id);
+
+          if (isMainSection) {
+            if (entry.isIntersecting) {
+              newSections.add(id);
+              const category = rulesDataCategories.find((cat) => cat.id === id);
+              if (category && category.pages.length > 0) {
+                setOpenCategories((prev) => {
+                  const newSet = new Set(prev);
+                  newSet.add(id);
+                  return newSet;
+                });
+              }
+            } else {
+              newSections.delete(id);
+            }
+          }
+        });
+        return newSections;
+      });
+
+      setActiveSubSections((prevSubSections) => {
+        const newSubSections = new Set(prevSubSections);
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          const isSubSection = rulesDataCategories.some((cat) => cat.pages.some((page) => page.id === id));
+
+          if (isSubSection) {
+            if (entry.isIntersecting) {
+              newSubSections.add(id);
+            } else {
+              newSubSections.delete(id);
+            }
+          }
+        });
+        return newSubSections;
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const allElements = [];
+
+    const timeoutId = setTimeout(() => {
+      rulesDataCategories.forEach((cat) => {
+        const element = document.getElementById(cat.id);
+        if (element) {
+          observer.observe(element);
+          allElements.push(element);
+        }
+
+        cat.pages.forEach((page) => {
+          const subElement = document.getElementById(page.id);
+          if (subElement) {
+            observer.observe(subElement);
+            allElements.push(subElement);
+          }
+        });
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      allElements.forEach((element) => {
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, []);
 
   const toggleCategory = (categoryId, e) => {
     e.preventDefault();
@@ -26,10 +110,10 @@ function RulesLayout() {
     <div className="flex flex-col xl:flex-row xl:gap-[40px] max-xl:pb-[45px]">
       <h2 className="text-text-primary text-[20px] font-medium hidden max-xl:block p-[20px] pb-0">Shelves</h2>
       <div className="order-1 xl:hidden max-xl:p-[20px]">
-        <Breadcrumbs />
+        <RulesBreadcrumbs />
       </div>
 
-      <div className="flex flex-col xl:items-end xl:text-right space-y-[5px] xl:max-w-[160px] xl:mb-[24px] xl:pt-[100px] order-2 xl:order-3 max-xl:px-[20px] max-xl:mb-[20px]">
+      <div className="flex flex-col xl:items-end xl:text-right space-y-[5px] xl:max-w-[160px] xl:mb-[24px] xl:pt-[100px] order-2 xl:order-3 max-xl:px-[20px] max-xl:mb-[20px] xl:sticky xl:top-[120px] xl:self-start xl:max-h-[calc(100vh-140px)] xl:overflow-y-auto">
         <p className="text-[#828383] xl:text-[26px] text-[18px] font-medium"> Details</p>
         <p className="xl:relative w-fit text-[#B1B1B1] xl:text-[16px] text-[14px] font-light max-xl:flex max-xl:items-center max-xl:gap-[10px]">
           <img
@@ -57,7 +141,7 @@ function RulesLayout() {
         </p>
       </div>
 
-      <aside className="xl:w-[280px] shrink-0 xl:ml-[35px] order-3 xl:order-1 max-xl:px-[20px]">
+      <aside className="xl:w-[280px] shrink-0 xl:ml-[35px] order-3 xl:order-1 max-xl:px-[20px] xl:sticky xl:top-[120px] xl:self-start xl:max-h-[calc(100vh-140px)] xl:overflow-y-auto xl:pr-[10px] scrollbar-hide">
         <h2 className="text-text-primary xl:text-[30px] text-[20px] font-medium xl:mb-[30px] mb-[15px] max-xl:hidden">
           Shelves
         </h2>
@@ -67,44 +151,96 @@ function RulesLayout() {
             Page Navigation
           </h3>
           <nav className="flex flex-col xl:flex-col max-xl:grid max-xl:grid-cols-2 gap-[8px]">
-            {rulesDataCategories.map((category) => (
-              <div key={category.id}>
-                {category.pages.length > 0 ? (
-                  <button
-                    onClick={(e) => toggleCategory(category.id, e)}
-                    className="text-accent-primary font-medium text-[16px] hover:opacity-80 text-left flex items-center gap-[10px]"
-                  >
-                    {category.title}
-                    <svg
-                      className={`w-[9px] h-[17px] fill-accent-primary transition-transform duration-300 ${openCategories.has(category.id) ? 'rotate-90' : ''}`}
+            {rulesDataCategories.map((category) => {
+              const isActive = activeSections.has(category.id);
+              return (
+                <div key={category.id}>
+                  {category.pages.length > 0 ? (
+                    <a
+                      href={`#${category.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleCategory(category.id, e);
+                        const element = document.getElementById(category.id);
+                        if (element) {
+                          const offset = 120;
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - offset;
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth',
+                          });
+                        }
+                      }}
+                      className={`font-medium text-[16px] transition-colors text-left flex items-center gap-[10px] ${
+                        isActive ? 'text-text-primary' : 'text-accent-primary hover:opacity-80'
+                      }`}
                     >
-                      <use href="/img/sprite.svg#arrow" />
-                    </svg>
-                  </button>
-                ) : (
-                  <Link
-                    to={`/rules/${category.id}`}
-                    className="text-accent-primary font-medium text-[16px] hover:opacity-80"
-                  >
-                    {category.title}
-                  </Link>
-                )}
-                {category.pages.length > 0 && openCategories.has(category.id) && (
-                  <ul className="ml-[10px] flex flex-col gap-[5px] mt-[5px]">
-                    {category.pages.map((page) => (
-                      <li key={page.id}>
-                        <Link
-                          to={`/rules/${category.id}/${page.id}`}
-                          className="text-accent-primary font-medium text-[16px] hover:opacity-80"
-                        >
-                          • {page.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
+                      {category.title}
+                      <svg
+                        className={`w-[9px] h-[17px] fill-accent-primary transition-transform duration-300 ${openCategories.has(category.id) ? 'rotate-90' : ''}`}
+                      >
+                        <use href="/img/sprite.svg#arrow" />
+                      </svg>
+                    </a>
+                  ) : (
+                    <a
+                      href={`#${category.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.getElementById(category.id);
+                        if (element) {
+                          const offset = 120;
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - offset;
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth',
+                          });
+                        }
+                      }}
+                      className={`font-medium text-[16px] transition-colors ${
+                        isActive ? 'text-text-primary' : 'text-accent-primary hover:opacity-80'
+                      }`}
+                    >
+                      {category.title}
+                    </a>
+                  )}
+                  {category.pages.length > 0 && openCategories.has(category.id) && (
+                    <ul className="ml-[10px] flex flex-col gap-[5px] mt-[5px]">
+                      {category.pages.map((page) => {
+                        const isSubActive = activeSubSections.has(page.id);
+                        return (
+                          <li key={page.id}>
+                            <a
+                              href={`#${page.id}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                const element = document.getElementById(page.id);
+                                if (element) {
+                                  const offset = 120;
+                                  const elementPosition = element.getBoundingClientRect().top;
+                                  const offsetPosition = elementPosition + window.pageYOffset - offset;
+                                  window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth',
+                                  });
+                                }
+                              }}
+                              className={`font-medium text-[16px] transition-colors ${
+                                isSubActive ? 'text-text-primary' : 'text-accent-primary hover:opacity-80'
+                              }`}
+                            >
+                              • {page.title}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         </div>
 
@@ -118,9 +254,9 @@ function RulesLayout() {
               return (
                 <Link
                   key={page.id}
-                  to={`/rules/${page.id}`}
+                  to={page.path}
                   className={`text-[16px] transition-colors xl:border-l-4 border-l-2 pl-[2px] ${
-                    page.page === page.id
+                    currentPath === page.id
                       ? 'text-[#40A6EE] border-[#40A6EE]'
                       : 'text-accent-primary border-accent-primary hover:text-text-primary hover:border-accent-primary'
                   }
@@ -136,7 +272,7 @@ function RulesLayout() {
 
       <div className="flex-1 min-w-0 max-w-[1060px] order-5 xl:order-2">
         <div className="hidden xl:block">
-          <Breadcrumbs />
+          <RulesBreadcrumbs />
         </div>
         <Outlet />
       </div>

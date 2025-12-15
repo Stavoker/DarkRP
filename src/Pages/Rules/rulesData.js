@@ -43,7 +43,12 @@ export const rulesDataCategories = [
       { id: 'underground-mutant', title: 'Underground Mutant' },
       { id: 'hobo', title: 'Hobo' },
       { id: 'medic', title: 'Medic' },
-      { id: 'exploiting', title: 'Exploiting' },
+    ],
+  },
+  {
+    id: 'exploiting',
+    title: 'Exploiting',
+    pages: [
       { id: 'general', title: 'General' },
       { id: 'criminal', title: 'Criminal' },
       { id: 'gangs', title: 'Gangs' },
@@ -53,9 +58,18 @@ export const rulesDataCategories = [
 ];
 
 export const navigationPages = [
-  { id: 'administration-staff', title: 'Administration and Staff Shelves', page: 'administration-staff' },
-  { id: 'how-sits-work', title: 'How Sits Work' },
-  { id: 'want-to-join-staff', title: 'Want to join the Staff Team?' },
-  { id: 'rules', title: 'Rules' },
-  { id: 'staff-roles', title: 'Staff Roles' },
+  {
+    id: 'administration-staff',
+    title: 'Administration and Staff Shelves',
+    page: 'administration-staff',
+    path: '/rules/administration-staff',
+  },
+  { id: 'how-sits-work', title: 'How Sits Work', path: '/shelves/darkrp/administration-staff/how-sits-work' },
+  {
+    id: 'want-to-join-staff',
+    title: 'Want to join the Staff Team?',
+    path: '/shelves/darkrp/administration-staff/want-to-join-staff',
+  },
+  { id: 'rules', title: 'Rules', path: '/rules/rules' },
+  { id: 'staff-roles', title: 'Staff Roles', path: 'shelves/darkrp/administration-staff/staff-roles' },
 ];

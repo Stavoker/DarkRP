@@ -9,7 +9,7 @@ function Shelves() {
       </p>
 
       <div className="flex flex-col xl:flex-row xl:gap-[40px] gap-[15px] max-xl:pb-[45px]">
-        <aside className="flex xl:flex-col flex-row gap-[48px] xl:w-[200px] shrink-0 xl:ml-[35px] xl:mt-[50px] order-1 xl:order-1 max-xl:px-[20px]">
+        <aside className="flex xl:flex-col flex-row gap-[48px] xl:w-[200px] shrink-0 xl:ml-[35px] xl:mt-[50px] order-1 xl:order-1 max-xl:px-[20px] xl:sticky xl:top-[120px] xl:self-start xl:max-h-[calc(100vh-140px)] xl:overflow-y-auto xl:pr-[10px] scrollbar-hide">
           <div className="flex flex-col xl:gap-[22px] gap-[10px]">
             <h3 className="text-text-secondary xl:text-[28px] text-[18px] font-medium"> Popular shelves</h3>
 
@@ -34,7 +34,7 @@ function Shelves() {
         </aside>
 
         <div className="flex flex-wrap xl:gap-[50px] gap-[25px] w-full max-w-[1060px] order-3 xl:order-2 max-xl:px-[20px]">
-          {Array.from({ length: 4 }).map((_, index) => (
+          {Array.from({ length: 1 }).map((_, index) => (
             <Link key={index} to="/shelves/darkrp" className="cursor-pointer ">
               <ShelveCard
                 title="DarkRP"
@@ -47,7 +47,7 @@ function Shelves() {
           ))}
         </div>
 
-        <div className="flex flex-col xl:items-end xl:text-right space-y-[5px] xl:min-w-[250px] xl:mb-[24px] xl:mt-[50px] order-2 xl:order-3 max-xl:px-[20px]">
+        <div className="flex flex-col xl:items-end xl:text-right space-y-[5px] xl:min-w-[250px] xl:mb-[24px] xl:mt-[50px] order-2 xl:order-3 max-xl:px-[20px] xl:sticky xl:top-[120px] xl:self-start xl:max-h-[calc(100vh-140px)] xl:overflow-y-auto">
           <p className="text-text-secondary xl:text-[28px] text-[18px] font-medium xl:mb-[29px] mb-[10px]">Filters</p>
 
           <div className="max-xl:flex max-xl:flex-row max-xl:justify-between max-xl:items-center max-xl:gap-[10px] space-y-[5px]">

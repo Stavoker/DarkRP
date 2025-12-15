@@ -3,8 +3,9 @@ const ShelvesDetailActivity = ({ infoActivity }) => {
 
   return (
     <div>
-      <h1 className="xl:text-[36px] text-[16px] font-medium mb-[10px]">{infoActivity.title}</h1>
-      <p className="text-text-secondary xl:text-[22px] text-[14px]">{infoActivity.description}</p>
+      <h1 className="xl:text-[36px] text-[16px] font-medium mb-[10px] xl:mb-[20px]">{infoActivity.title}</h1>
+      {infoActivity.text && infoActivity.text}
+      {infoActivity.description && infoActivity.description}
     </div>
   );
 };

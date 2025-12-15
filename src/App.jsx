@@ -47,7 +47,9 @@ function App() {
               </Route>
               <Route path="/rules/*" element={<Rules />} />
               <Route path="/shelves" element={<Shelves />} />
-              <Route path="/shelves/:id" element={<ShelveDetail />} />
+              <Route path="/shelves/:shelfId" element={<ShelveDetail />} />
+              <Route path="/shelves/:shelfId/:bookId" element={<ShelveDetail />} />
+              <Route path="/shelves/:shelfId/:bookId/:pageId" element={<ShelveDetail />} />
               <Route path="/store" element={<Store />} />
               <Route path="/forums" element={<Forums />} />
               <Route path="/service" element={<Service />} />
