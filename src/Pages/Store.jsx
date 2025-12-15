@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Checkbox from '../Components/Checkbox/Checkbox';
 import Input from '../Components/Input/Input';
+import { capturePayPalOrder, createPayPalOrder } from '../api/paypal.js';
 import TabButton from './Store/TabButton';
 
 function Store() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState('tokens');
   const [hoveredTab, setHoveredTab] = useState(null);
   const [steamId, setSteamId] = useState('');
@@ -12,6 +15,7 @@ function Store() {
   const [gbp, setGbp] = useState('15');
   const [agreed, setAgreed] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null);
   const sliderRef = useRef(null);
   const animationFrameRef = useRef(null);
 
@@ -67,10 +71,73 @@ function Store() {
     };
   }, [isDragging, updateSliderValue]);
 
-  const handleSubmit = (e) => {
+  // Обработка успешного/отмененного платежа из URL параметров
+  useEffect(() => {
+    const success = searchParams.get('success');
+    const canceled = searchParams.get('canceled');
+    const orderId = searchParams.get('token');
+
+    if (success === 'true' && orderId) {
+      // Захватываем платеж
+      capturePayPalOrder(orderId)
+        .then((result) => {
+          setTimeout(() => {
+            setPaymentStatus({ type: 'success', message: `Successfully purchased ${result.tokens} tokens!` });
+            // Очищаем форму
+            setSteamId('');
+            setEmail('');
+            setTokens('100');
+            setGbp('15');
+            setAgreed(false);
+            setSearchParams({});
+          }, 0);
+        })
+        .catch((error) => {
+          setTimeout(() => {
+            setPaymentStatus({ type: 'error', message: `Payment failed: ${error.message}` });
+            setSearchParams({});
+          }, 0);
+        });
+    } else if (canceled === 'true') {
+      setTimeout(() => {
+        setPaymentStatus({ type: 'canceled', message: 'Payment was canceled' });
+        setSearchParams({});
+      }, 0);
+    }
+  }, [searchParams, setSearchParams]);
+
+  const handlePayPalClick = async (e) => {
     e.preventDefault();
-    // Здесь будет логика отправки формы
-    console.log({ steamId, email, tokens, gbp });
+
+    if (!agreed) {
+      setPaymentStatus({ type: 'error', message: 'Please agree to the terms' });
+      return;
+    }
+
+    if (!steamId || !tokens || !gbp) {
+      setPaymentStatus({ type: 'error', message: 'Please fill in all required fields' });
+      return;
+    }
+
+    try {
+      setPaymentStatus({ type: 'loading', message: 'Creating order...' });
+      const order = await createPayPalOrder({
+        steamId,
+        email,
+        tokens: Number(tokens),
+        amount: Number(gbp),
+      });
+
+      // Перенаправляем на PayPal для оплаты
+      if (order.approvalUrl) {
+        window.location.href = order.approvalUrl;
+      } else {
+        throw new Error('No approval URL received from PayPal');
+      }
+    } catch (error) {
+      console.error('Error creating PayPal order:', error);
+      setPaymentStatus({ type: 'error', message: `Failed to create order: ${error.message}` });
+    }
   };
 
   return (
@@ -112,7 +179,10 @@ function Store() {
 
         <div className="flex flex-col max-w-[1070px] w-full order-2 xl:order-2 max-xl:px-[20px]">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+              // Форма обрабатывается через PayPal кнопки
+            }}
             className="xl:bg-background-block xl:rounded-[16px] xl:max-w-[915px] w-full mx-auto xl:px-[40px] xl:py-[30px] xl:shadow-neon"
           >
             {/* SteamID Input */}
@@ -206,12 +276,35 @@ function Store() {
               />
             </div>
 
+            {/* Payment Status Message */}
+            {paymentStatus && paymentStatus.type !== 'loading' && (
+              <div
+                className={`mb-[20px] p-[15px] rounded-[8px] ${
+                  paymentStatus.type === 'success'
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/50'
+                    : paymentStatus.type === 'error'
+                      ? 'bg-red-500/20 text-red-400 border border-red-500/50'
+                      : 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50'
+                }`}
+              >
+                <p className="text-[16px]">{paymentStatus.message}</p>
+              </div>
+            )}
+
+            {/* Loading Message */}
+            {paymentStatus?.type === 'loading' && (
+              <div className="mb-[20px] p-[15px] rounded-[8px] bg-blue-500/20 text-blue-400 border border-blue-500/50">
+                <p className="text-[16px]">{paymentStatus.message}</p>
+              </div>
+            )}
+
             {/* PayPal Button */}
             <div className="flex flex-col gap-[10px]">
               <button
-                type="submit"
-                disabled={!agreed}
-                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed relative overflow-hidden"
+                type="button"
+                onClick={handlePayPalClick}
+                disabled={!agreed || paymentStatus?.type === 'loading'}
+                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 relative overflow-hidden"
               >
                 <div
                   className={`absolute inset-0 rounded-[8px] transition-opacity ${!agreed ? 'opacity-[0.3]' : 'opacity-100'}`}

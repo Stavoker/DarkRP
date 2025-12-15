@@ -1,7 +1,16 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/useAuth.js';
 
 const Header = ({ onMenuClick }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, loading, login, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    setIsOpen(false);
+  };
+
   return (
     <header className="absolute z-10 top-0 left-0 right-0 bg-[#0D1322] xl:bg-background-main max-xl:shadow-neon">
       <div className="flex items-center justify-between gap-[10px] px-[20px] pt-[50px] pb-[5px] xl:justify-end xl:px-[50px] xl:pt-[40px] xl:pb-[10px]">
@@ -14,26 +23,48 @@ const Header = ({ onMenuClick }) => {
         </button>
 
         <div className="relative">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="flex cursor-pointer p-2 items-center gap-[10px] text-text-primary xl:text-[22px] text-[16px] font-light"
-          >
-            Ayanami rei
-            <img
-              src="/img/icons/avatar.svg"
-              alt="Avatar"
-              className="w-[40px] h-[40px] rounded-full xl:w-[30px] xl:h-[30px]"
-            />
-          </button>
-          {isOpen && (
-            <div className="grid gap-[20px] absolute top-[50px] right-0 p-[15px] w-[184px] rounded-[6px] h-[104px] shadow-neon bg-[linear-gradient(180deg,#0F182C_0%,#1D293D_100%)]">
-              <p className="flex items-center gap-[10px] text-[22px] font-light">
-                <img src="/img/icons/profile.svg" alt="Profile" className="w-[12px] h-[14px]" /> Profile
-              </p>
-              <button className="flex items-center cursor-pointer text-text-cheating gap-[10px] xl:text-[22px] text-[16px] font-light">
-                <img src="/img/icons/exit.svg" alt="Exit" className="w-[14px] h-[14px]" /> Exit
-              </button>
+          {loading ? (
+            <div className="flex items-center gap-[10px] text-text-primary xl:text-[22px] text-[16px] font-light">
+              Loading...
             </div>
+          ) : user ? (
+            <>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex cursor-pointer p-2 items-center gap-[10px] text-text-primary xl:text-[22px] text-[16px] font-light"
+              >
+                {user.name || 'User'}
+                <img
+                  src={user.avatar || '/img/icons/avatar.svg'}
+                  alt="Avatar"
+                  className="w-[40px] h-[40px] rounded-full xl:w-[30px] xl:h-[30px]"
+                />
+              </button>
+              {isOpen && (
+                <div className="grid gap-[20px] absolute top-[50px] right-0 p-[15px] w-[184px] rounded-[6px] h-[104px] shadow-neon bg-[linear-gradient(180deg,#0F182C_0%,#1D293D_100%)]">
+                  <Link
+                    to="/"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-[10px] text-[22px] font-light"
+                  >
+                    <img src="/img/icons/profile.svg" alt="Profile" className="w-[12px] h-[14px]" /> Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center cursor-pointer text-text-cheating gap-[10px] xl:text-[22px] text-[16px] font-light"
+                  >
+                    <img src="/img/icons/exit.svg" alt="Exit" className="w-[14px] h-[14px]" /> Exit
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <button
+              onClick={login}
+              className="flex cursor-pointer p-2 items-center gap-[10px] text-text-primary xl:text-[22px] text-[16px] font-light hover:opacity-80 transition-opacity"
+            >
+              Login
+            </button>
           )}
         </div>
       </div>

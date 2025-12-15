@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
+import { AuthProvider } from './contexts/AuthProvider.jsx';
 import Footer from './Components/Footer/Footer';
 import Header from './Components/Header/Header';
 import Sidebar from './Components/Sidebar/Sidebar';
+import AuthError from './Pages/AuthError';
+import AuthSuccess from './Pages/AuthSuccess';
 import Bans from './Pages/Bans';
 import Earners from './Pages/Earners';
 import Forums from './Pages/Forums';
@@ -26,7 +29,7 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <>
+    <AuthProvider>
       <div className="flex min-h-screen relative">
         <Header onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} isMobileMenuOpen={isMobileMenuOpen} />
         <Sidebar isMobileMenuOpen={isMobileMenuOpen} onCloseMobileMenu={() => setIsMobileMenuOpen(false)} />
@@ -54,6 +57,8 @@ function App() {
               <Route path="/forums" element={<Forums />} />
               <Route path="/service" element={<Service />} />
               <Route path="/privacy" element={<Policy />} />
+              <Route path="/auth/success" element={<AuthSuccess />} />
+              <Route path="/auth/error" element={<AuthError />} />
               <Route path="*" element={<div>404 Not Found</div>} />
             </Routes>
           </main>
@@ -63,7 +68,7 @@ function App() {
           <div className="hidden xl:block absolute bottom-[88px] -z-1 right-0 w-[618px] h-[494px] bg-[url(/img/bg_buy_tokens.png)]  bg-contain bg-no-repeat bg-right"></div>
         )}
       </div>
-    </>
+    </AuthProvider>
   );
 }
 
