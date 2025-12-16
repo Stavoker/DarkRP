@@ -29,9 +29,9 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
           data-menu-toggle
         >
           {isMobileMenuOpen ? (
-            <img src="/img/icons/close_menu.svg" alt="Menu" className="w-[24px] h-[24px]" />
+            <img src="/img/icons/close_menu.svg" alt="Menu" className="w-[16px] h-[18px]" />
           ) : (
-            <img src="/img/icons/menu.svg" alt="Menu" className="w-[34px] h-[34px]" />
+            <img src="/img/icons/menu.svg" alt="Menu" className="w-[32px] h-[32px]" />
           )}
         </button>
 
