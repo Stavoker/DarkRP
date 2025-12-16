@@ -61,7 +61,7 @@ function Earners() {
           <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px] xl:py-[25px] mt-[10px] xl:mt-0 xl:px-[35px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
             <p className="">Position</p>
             <p className="xl:min-w-[300px] min-w-[210px]">Player</p>
-            <p className="">Total</p>
+            <p className="xl:max-w-[340px]">Total</p>
           </div>
 
           <ul className="grid xl:gap-[35px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block shadow-neon">
@@ -88,7 +88,7 @@ function Earners() {
                     />
                     {earner.rpname || 'Unknown'}
                   </p>
-                  <p className="">{formatMoney(earner)}</p>
+                  <p className="xl:max-w-[340px]">{formatMoney(earner)}</p>
                 </li>
               );
             })}
