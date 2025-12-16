@@ -108,9 +108,9 @@ function Bans() {
                         <span
                           className="dot-element w-[10px] h-[10px] rounded-full"
                           style={{
-                            backgroundColor: ban.status === 'Banned' ? '#ff0707' : '#2ba071',
+                            backgroundColor: ban.status !== 'Banned' ? '#ff0707' : '#2ba071',
                             boxShadow:
-                              ban.status === 'Banned'
+                              ban.status !== 'Banned'
                                 ? '0px 0px 4px 4px rgba(255,7,7,0.15)'
                                 : '0px 0px 4px 4px rgba(43, 160, 113, 0.15)',
                           }}
