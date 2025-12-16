@@ -12,7 +12,7 @@ import Earners from './Pages/Earners';
 import Forums from './Pages/Forums';
 import Gangs from './Pages/Gangs';
 import EventsLeaderboard from './Pages/Leaderboard/EventsLeaderboard';
-import GangLeaderboard from './Pages/Leaderboard/GangLeaderboard';
+import PlaytimeLeaderboard from './Pages/Leaderboard/PlaytimeLeaderboard';
 import TokensLeaderboard from './Pages/Leaderboard/TokensLeaderboard';
 import Policy from './Pages/Policy';
 import Profile from './Pages/Profile';
@@ -34,7 +34,7 @@ function App() {
         <Header onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} isMobileMenuOpen={isMobileMenuOpen} />
         <Sidebar isMobileMenuOpen={isMobileMenuOpen} onCloseMobileMenu={() => setIsMobileMenuOpen(false)} />
         <div className="flex flex-col flex-1 min-w-0">
-          <main className="container flex-1 pt-[100px] xl:pl-[140px] xl:pr-[40px]">
+          <main className="container flex-1 pt-[100px] xl:pl-[170px] xl:pr-[40px]">
             <Routes>
               <Route path="/" element={<Profile />} />
               <Route path="/bans" element={<Bans />} />
@@ -46,7 +46,7 @@ function App() {
                 <Route index element={<Navigate to="/leaderboard/tokens" replace />} />
                 <Route path="tokens" element={<TokensLeaderboard />} />
                 <Route path="events" element={<EventsLeaderboard />} />
-                <Route path="gangs" element={<GangLeaderboard />} />
+                <Route path="playtime" element={<PlaytimeLeaderboard />} />
               </Route>
               <Route path="/rules/*" element={<Rules />} />
               <Route path="/shelves" element={<Shelves />} />

@@ -58,7 +58,7 @@ function Gangs() {
             <p className="text-text-secondary text-xl">No gangs found</p>
           </div>
         ) : (
-          <ul className="grid xl:gap-[35px] gap-[14px] max-xl:min-w-[800px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:pr-[103px] xl:bg-background-block shadow-neon">
+          <ul className="grid xl:gap-[35px] gap-[14px] xl:rounded-[15px] max-xl:min-w-[800px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block shadow-neon">
             {gangs.map((gang, index) => (
               <li
                 key={gang.id || gang.name || `gang-${index}`}
@@ -77,7 +77,7 @@ function Gangs() {
                 <p className="text-center font-medium">{gang.level || gang.Level || 0}</p>
                 <p className="text-center font-medium">{gang.power || gang.Power || 0}</p>
                 <p className="text-center font-medium">{gang.credits || gang.Credits || 0}</p>
-                <p className="text-right font-medium">{gang.members || gang.Members || 0}</p>
+                <p className="text-center font-medium">{gang.members || gang.Members || 0}</p>
               </li>
             ))}
           </ul>

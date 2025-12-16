@@ -194,7 +194,7 @@ function ShelveDetail() {
           </div>
 
           {!bookId && (
-            <div className="flex flex-wrap xl:gap-[50px] gap-[25px]">
+            <div className="flex flex-wrap xl:gap-[50px] gap-[25px] xl:pb-[80px] pb-[45px]">
               {books.map((book) => (
                 <ShelveCard
                   key={book.id}

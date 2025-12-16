@@ -24,18 +24,18 @@ function EventsLeaderboard() {
       <PageHeader title="Events" text="Leaderboard" onSearchChange={handleSearchChange} searchValue={searchValue} />
 
       <div className="max-xl:overflow-x-auto max-xl:mb-[20px]">
-        <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px]  xl:py-[25px] xl:px-[35px] xl:pr-[103px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
+        <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px]  xl:py-[25px] xl:px-[35px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
           <p className="">Position</p>
           <p className="xl:min-w-[300px] min-w-[210px]">Player</p>
           <p className="">Wins</p>
           <p className="">Total</p>
         </div>
 
-        <ul className="grid xl:gap-[35px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:pr-[103px] xl:bg-background-block shadow-neon">
+        <ul className="grid xl:gap-[35px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block shadow-neon">
           {Array.from({ length: 10 }).map((_, index) => (
             <li
               key={index}
-              className="flex items-center max-xl:gap-[15px] ml-[6px] border-primary border-b pb-[14px] xl:pb-[35px] *:w-full xl:*:text-[18px] *:text-[14px] last:border-b-0"
+              className="flex items-center max-xl:gap-[15px] border-primary border-b pb-[14px] xl:pb-[35px] *:w-full xl:*:text-[18px] *:text-[14px] last:border-b-0"
             >
               <p className="flex items-center gap-[17px]">
                 {index + 1}{' '}

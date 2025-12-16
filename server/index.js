@@ -11,6 +11,7 @@ import earnersRoutes from './routes/earners.js';
 import gangsRoutes from './routes/gangs.js';
 import leaderboardRoutes from './routes/leaderboard.js';
 import paypalRoutes from './routes/paypal.js';
+import playersRoutes from './routes/players.js';
 import punishmentsRoutes from './routes/punishments.js';
 import staffRoutes from './routes/staff.js';
 import storeRoutes from './routes/store.js';
@@ -90,6 +91,7 @@ app.use('/api/punishments', punishmentsRoutes);
 app.use('/api/gangs', gangsRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/earners', earnersRoutes);
+app.use('/api/players', playersRoutes);
 
 // Debug endpoint to check if auth routes are loaded
 app.get('/api/debug/routes', (req, res) => {

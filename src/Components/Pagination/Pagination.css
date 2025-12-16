@@ -5,15 +5,30 @@
   list-style: none;
   margin: 0;
   padding: 0;
+
+  width: 100%;
+  max-width: 800px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 1200px) {
+  .react-paginate {
+    gap: 5px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+  }
 }
 
 .react-paginate-page {
+  width: 50px;
   display: inline-block;
 }
 
 .react-paginate-page-link {
   display: inline-block;
-  padding: 4px;
+  /* padding: 4px; */
   color: var(--color-text-primary);
   cursor: pointer;
   transition: color 0.2s;
@@ -23,6 +38,7 @@
   font-family: inherit;
   font-size: inherit;
   line-height: 1;
+  width: 100%;
 }
 
 .react-paginate-page-link:hover {
@@ -39,16 +55,8 @@
   opacity: 0.8;
 }
 
-.react-paginate-page:has(+ .react-paginate-active) .react-paginate-page-link {
-  text-decoration: underline;
-}
-
 .react-paginate-page:has(+ .react-paginate-active) .react-paginate-page-link:hover {
   opacity: 0.8;
-}
-
-.react-paginate-page.previous-page .react-paginate-page-link {
-  text-decoration: underline;
 }
 
 .react-paginate-page.previous-page .react-paginate-page-link:hover {

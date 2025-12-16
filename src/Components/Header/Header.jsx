@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/useAuth.js';
 
 const Header = ({ onMenuClick }) => {
@@ -13,7 +12,7 @@ const Header = ({ onMenuClick }) => {
 
   return (
     <header className="absolute z-10 top-0 left-0 right-0 bg-[#0D1322] xl:bg-background-main max-xl:shadow-neon">
-      <div className="flex items-center justify-between gap-[10px] px-[20px] pt-[50px] pb-[5px] xl:justify-end xl:px-[50px] xl:pt-[40px] xl:pb-[10px]">
+      <div className="flex items-center justify-between gap-[10px] px-[20px] py-[5px] xl:justify-end xl:px-[50px] xl:pt-[40px] xl:pb-[10px]">
         <button
           onClick={onMenuClick}
           className="flex items-center justify-center w-[40px] h-[40px] xl:hidden"
@@ -41,14 +40,16 @@ const Header = ({ onMenuClick }) => {
                 />
               </button>
               {isOpen && (
-                <div className="grid gap-[20px] absolute top-[50px] right-0 p-[15px] w-[184px] rounded-[6px] h-[104px] shadow-neon bg-[linear-gradient(180deg,#0F182C_0%,#1D293D_100%)]">
-                  <Link
-                    to="/"
-                    onClick={() => setIsOpen(false)}
+                <div className="cursor-pointer grid gap-[20px] absolute top-[50px] right-0 p-[15px] w-[184px] rounded-[6px] h-[104px] shadow-neon bg-[linear-gradient(180deg,#0F182C_0%,#1D293D_100%)]">
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      window.open(`https://steamcommunity.com/profiles/${user.steamId64}/`, '_blank');
+                    }}
                     className="flex items-center gap-[10px] text-[22px] font-light"
                   >
                     <img src="/img/icons/profile.svg" alt="Profile" className="w-[12px] h-[14px]" /> Profile
-                  </Link>
+                  </button>
                   <button
                     onClick={handleLogout}
                     className="flex items-center cursor-pointer text-text-cheating gap-[10px] xl:text-[22px] text-[16px] font-light"

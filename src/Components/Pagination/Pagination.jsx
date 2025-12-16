@@ -58,7 +58,7 @@ function Pagination({ currentPage, totalPages, totalItems, itemsPerPage, onPageC
             </svg>
           }
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={window.innerWidth > 1200 ? 10 : 5}
           marginPagesDisplayed={2}
           pageCount={totalPages}
           forcePage={currentPage - 1}

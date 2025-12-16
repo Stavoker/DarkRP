@@ -17,23 +17,8 @@ function Earners() {
     currentPage,
   } = usePagination(getEarners, 10);
 
-  // Форматирование денег в формат с запятыми и символом £
   const formatMoney = (earner) => {
-    // Пробуем разные варианты названий колонок для денег
-    const money =
-      earner.money ||
-      earner.Money ||
-      earner.total_money ||
-      earner.totalMoney ||
-      earner.earned ||
-      earner.Earned ||
-      earner.wallet ||
-      earner.Wallet ||
-      earner.cash ||
-      earner.Cash ||
-      earner.total ||
-      earner.Total ||
-      0;
+    const money = earner.wallet || 0;
 
     if (!money && money !== 0) return '£0';
     const numMoney = Number(money);
@@ -73,15 +58,14 @@ function Earners() {
         </div>
       ) : (
         <div className="max-xl:overflow-x-auto max-xl:mb-[20px]">
-          <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px] xl:py-[25px] xl:px-[35px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
+          <div className="flex items-center max-xl:gap-[15px] px-[20px] xl:mb-[30px] xl:py-[25px] mt-[10px] xl:mt-0 xl:px-[35px] xl:bg-background-block xl:shadow-neon xl:rounded-[15px] *:w-full xl:*:text-[22px] *:text-[16px] *:font-medium">
             <p className="">Position</p>
             <p className="xl:min-w-[300px] min-w-[210px]">Player</p>
             <p className="">Total</p>
           </div>
 
-          <ul className="grid xl:gap-[35px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:pr-[103px] xl:bg-background-block shadow-neon">
+          <ul className="grid xl:gap-[35px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block shadow-neon">
             {earners.map((earner, index) => {
-              // Вычисляем позицию с учетом текущей страницы
               const position = (currentPage - 1) * itemsPerPage + index + 1;
               return (
                 <li

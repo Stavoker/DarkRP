@@ -10,7 +10,7 @@ function Policy() {
         Effective Date: 5th June 2025
       </p>
 
-      <div className="xl:space-y-[30px] space-y-[20px] max-xl:p-[20px]">
+      <div className="xl:space-y-[30px] space-y-[20px] max-xl:p-[20px] xl:pb-[80px] pb-[45px]">
         <div>
           <h2 className="text-text-primary xl:text-[36px] text-[16px] font-medium mb-[2px]">1. Overview</h2>
           <p className="text-text-secondary xl:text-[20px] text-[14px] xl:ml-[35px] ml-[20px]">

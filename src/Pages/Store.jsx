@@ -304,15 +304,11 @@ function Store() {
                 type="button"
                 onClick={handlePayPalClick}
                 disabled={!agreed || paymentStatus?.type === 'loading'}
-                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 relative overflow-hidden"
+                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-background hover:bg-accent-primary disabled:cursor-not-allowed disabled:opacity-50 relative overflow-hidden"
               >
                 <div
                   className={`absolute inset-0 rounded-[8px] transition-opacity ${!agreed ? 'opacity-[0.3]' : 'opacity-100'}`}
-                  style={
-                    !agreed
-                      ? { background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)' }
-                      : { background: '#2DA172' }
-                  }
+                  style={{ background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)', opacity: 0.3 }}
                 />
                 <div className="relative z-10 flex items-center justify-center gap-[12px]">
                   <div className="w-[30px] h-[30px] rounded-[4px] flex items-center justify-center">
@@ -321,21 +317,18 @@ function Store() {
                   Pay with PayPal
                 </div>
               </button>
-
               <button
                 type="button"
-                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:opacity-90 disabled:cursor-not-allowed relative overflow-hidden"
+                onClick={handlePayPalClick}
+                disabled={!agreed || paymentStatus?.type === 'loading'}
+                className="w-full h-[55px] cursor-pointer rounded-[8px] flex items-center justify-center gap-[12px] text-text-primary text-[18px] font-medium transition-opacity hover:bg-accent-primary disabled:cursor-not-allowed disabled:opacity-50 relative overflow-hidden"
               >
                 <div
                   className={`absolute inset-0 rounded-[8px] transition-opacity ${!agreed ? 'opacity-[0.3]' : 'opacity-100'}`}
-                  style={
-                    !agreed
-                      ? { background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)' }
-                      : { background: '#2DA172' }
-                  }
+                  style={{ background: 'linear-gradient(95deg, #2DA172 7.61%, #0D1322 74.75%)', opacity: 0.3 }}
                 />
                 <div className="relative z-10 flex items-center justify-center gap-[12px]">
-                  <div className=" rounded-[4px] flex items-center justify-center">
+                  <div className="w-[30px] h-[30px] rounded-[4px] flex items-center justify-center">
                     <img src="/img/icons/stripe.svg" alt="Stripe" className="w-[65px] h-[27px]" />
                   </div>
                   Pay with Stripe

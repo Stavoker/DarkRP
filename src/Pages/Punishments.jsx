@@ -54,7 +54,7 @@ function Punishments() {
             {punishments.map((punishment, index) => (
               <li
                 key={punishment.id || `punishment-${index}`}
-                className="relative bg-background-block p-[20px] ml-[6px] rounded-r-[15px] shadow-neon"
+                className="relative bg-background-block xl:p-[25px] p-[20px] rounded-r-[15px] shadow-neon"
               >
                 <span className="block w-[6px] h-full bg-background-cheating absolute top-0 left-0 rounded-l-[6px]"></span>
                 <div className="flex *:w-full *:grid *:gap-[22px] *:items-start max-xl:gap-[40px]">

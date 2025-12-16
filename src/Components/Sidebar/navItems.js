@@ -12,7 +12,7 @@ export const navItems = [
     submenu: [
       { path: '/leaderboard/tokens', label: 'Token Leaderboard' },
       { path: '/leaderboard/events', label: 'Event Leaderboard' },
-      { path: '/leaderboard/gangs', label: 'Gang Leaderboard Hub' },
+      { path: '/leaderboard/playtime', label: 'Playtime Leaderboard' },
     ],
   },
   { path: '/rules', label: 'Rules', iconId: 'rules' },

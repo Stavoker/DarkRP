@@ -15,7 +15,7 @@ function Profile() {
 
   return (
     <div className="flex flex-col xl:gap-[40px] h-full xl:pb-[40px] xl:max-h-[1014px] xl:flex-row">
-      <div className="relative w-full xl:w-1/2 xl:shadow-neon  xl:p-[35px] p-[20px] pt-[69px] xl:pt-[120px] bg-background-block">
+      <div className="relative w-full xl:w-1/2 xl:shadow-neon  xl:p-[35px] p-[20px] pt-[69px] xl:pt-[120px] xl:rounded-[15px] bg-background-block">
         <div className="absolute top-0 left-0 w-full h-[115px] xl:h-[200px] xl:rounded-t-[15px] bg-[url(/img/bg-profile-mobile.png)] max-xl:bg-size-[100%_auto] xl:bg-[url(/img/bg-profile.png)] xl:bg-size-cover bg-no-repeat bg-top"></div>
         <div className="w-full h-full">
           <div className="grid items-center justify-center mb-[24px]">
