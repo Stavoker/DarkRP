@@ -37,6 +37,11 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      const menuButton = event.target.closest('button[data-menu-toggle]');
+      if (menuButton) {
+        return;
+      }
+
       if (isMobileMenuOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
         if (onCloseMobileMenu) {
           onCloseMobileMenu();
@@ -87,7 +92,7 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
   const sidebarIsOpen = isMobileMenuOpen || isOpen;
 
   const sidebarClasses = isMobileMenuOpen
-    ? `${SIDEBAR_BASE_CLASSES} w-full top-[94px] h-[calc(100vh-94px)] z-30 xl:hidden`
+    ? `${SIDEBAR_BASE_CLASSES} w-full top-[60px] h-[calc(100vh-60px)] z-30 xl:hidden`
     : `${SIDEBAR_BASE_CLASSES} ${isOpen ? 'w-[290px]' : 'w-[100px]'} h-screen max-h-[1080px] z-10 hidden xl:flex`;
 
   const handleLogoClick = () => {

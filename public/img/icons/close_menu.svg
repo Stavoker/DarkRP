@@ -1,0 +1,15 @@
+<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_f_286_4866)">
+<rect width="22.6667" height="2" rx="1" transform="matrix(0.645504 0.763757 0.763757 -0.645504 1.59277 2.88086)" fill="#2BA071"/>
+<rect width="22.6667" height="2" rx="1" transform="matrix(0.644711 -0.764426 -0.764426 -0.644711 3.12012 20.209)" fill="#2BA071"/>
+</g>
+<path d="M3.35746 19.0981C3.78082 19.4527 4.41153 19.397 4.7662 18.9737L17.6097 3.64249C17.9643 3.21913 17.9086 2.58842 17.4853 2.23376C17.0619 1.87909 16.4312 1.93478 16.0765 2.35814L3.23308 17.6893C2.87842 18.1127 2.93411 18.7434 3.35746 19.0981Z" fill="#2BA071"/>
+<path d="M2.36245 2.22602C1.93683 2.57797 1.87711 3.20831 2.22906 3.63393L14.9742 19.0469C15.3262 19.4726 15.9565 19.5323 16.3821 19.1803C16.8077 18.8284 16.8675 18.198 16.5155 17.7724L3.77036 2.35942C3.41841 1.9338 2.78807 1.87407 2.36245 2.22602Z" fill="#2BA071"/>
+<defs>
+<filter id="filter0_f_286_4866" x="0" y="0" width="19.3428" height="21.8008" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="1" result="effect1_foregroundBlur_286_4866"/>
+</filter>
+</defs>
+</svg>

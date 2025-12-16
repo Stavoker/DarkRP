@@ -51,7 +51,7 @@ function EventsLeaderboard() {
           <p className="">Total</p>
         </div>
 
-        <ul className="grid xl:gap-[35px] rounded-[15px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block shadow-neon">
+        <ul className="grid xl:gap-[35px] max-xl:min-w-[550px] xl:rounded-[15px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block xl:shadow-neon">
           {events.length === 0 ? (
             <li className="flex justify-center items-center py-[50px]">
               <p className="text-text-secondary text-xl">No events found</p>

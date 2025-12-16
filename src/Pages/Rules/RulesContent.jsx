@@ -543,14 +543,14 @@ function RulesContent() {
               <p className="text-text-secondary xl:text-[20px] text-[14px]">
                 <span className="font-medium bg-accent-primary xl:px-[5px] px-[2px] xl:py-[5px] py-0 text-text-primary xl:mr-[5px] mr-[2px]">
                   4.7 Timer
-                </span>
+                      </span>
                 You cannot raid the same base until 15 minutes has passed from the end of the raid. If you died during
                 the raid (defending/attacking), you cannot go back until the raid has finished and your NLR is up. Raids
                 can last no longer than 10 minutes.
-              </p>
+                    </p>
             </li>
           </ul>
-        </div>
+                  </div>
 
         {/* Turf Wars Section */}
         <div id="turf-wars">
@@ -626,7 +626,7 @@ function RulesContent() {
               </p>
             </li>
           </ul>
-        </div>
+              </div>
 
         {/* Protect The VIP Section */}
         <div id="protect-the-vip">
@@ -668,9 +668,9 @@ function RulesContent() {
                 The defending property must be fully accessible, it must follow all basing rules. Building and "Role
                 play" bases do not apply.
               </p>
-            </li>
-          </ul>
-        </div>
+                        </li>
+                    </ul>
+                  </div>
 
         {/* Jobs Section */}
         <div id="jobs">
@@ -911,7 +911,7 @@ function RulesContent() {
               </ul>
             </li>
           </ul>
-        </div>
+              </div>
 
         {/* Exploiting Section */}
         <div id="exploiting">
@@ -1026,27 +1026,27 @@ function RulesContent() {
               </ul>
             </li>
           </ul>
-        </div>
+          </div>
       </div>
 
       {/* Navigation */}
       <div className="flex items-center justify-between xl:mt-[60px] xl:pt-[30px] pt-[20px] xl:mb-[80px] max-xl:px-[20px] xl:px-0">
         <p className="flex flex-col text-text-secondary xl:text-[20px] text-[14px]">
-          Previous
+            Previous
           <Link
             to="/rules/want-to-join-staff"
             className="text-accent-primary xl:text-[18px] text-[14px] hover:opacity-80"
           >
             Want to join the Staff Team?
-          </Link>
-        </p>
+            </Link>
+          </p>
 
         <p className="flex flex-col items-end text-text-secondary xl:text-[20px] text-[14px]">
-          Next
+            Next
           <Link to="/rules/staff-roles" className="text-accent-primary xl:text-[18px] text-[14px] hover:opacity-80">
             Staff Roles
-          </Link>
-        </p>
+            </Link>
+          </p>
       </div>
     </div>
   );

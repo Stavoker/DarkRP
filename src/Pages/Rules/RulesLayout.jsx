@@ -154,7 +154,7 @@ function RulesLayout() {
             {rulesDataCategories.map((category) => {
               const isActive = activeSections.has(category.id);
               return (
-                <div key={category.id}>
+              <div key={category.id}>
                   {category.pages.length > 0 ? (
                     <a
                       href={`#${category.id}`}
@@ -202,8 +202,8 @@ function RulesLayout() {
                       className={`font-medium text-[16px] transition-colors ${
                         isActive ? 'text-text-primary' : 'text-accent-primary hover:opacity-80'
                       }`}
-                    >
-                      {category.title}
+                >
+                  {category.title}
                     </a>
                   )}
                   {category.pages.length > 0 && openCategories.has(category.id) && (
@@ -211,7 +211,7 @@ function RulesLayout() {
                       {category.pages.map((page) => {
                         const isSubActive = activeSubSections.has(page.id);
                         return (
-                          <li key={page.id}>
+                      <li key={page.id}>
                             <a
                               href={`#${page.id}`}
                               onClick={(e) => {
@@ -230,15 +230,15 @@ function RulesLayout() {
                               className={`font-medium text-[16px] transition-colors ${
                                 isSubActive ? 'text-text-primary' : 'text-accent-primary hover:opacity-80'
                               }`}
-                            >
-                              • {page.title}
+                        >
+                          • {page.title}
                             </a>
-                          </li>
+                      </li>
                         );
                       })}
-                    </ul>
-                  )}
-                </div>
+                  </ul>
+                )}
+              </div>
               );
             })}
           </nav>

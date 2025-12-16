@@ -28,13 +28,21 @@ function App() {
   const { pathname } = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const handleToggleMenu = () => {
+    setIsMobileMenuOpen((prev) => !prev);
+  };
+
+  const handleCloseMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <AuthProvider>
       <div className="flex min-h-screen relative">
-        <Header onMenuClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} isMobileMenuOpen={isMobileMenuOpen} />
-        <Sidebar isMobileMenuOpen={isMobileMenuOpen} onCloseMobileMenu={() => setIsMobileMenuOpen(false)} />
+        <Header onMenuClick={handleToggleMenu} isMobileMenuOpen={isMobileMenuOpen} />
+        <Sidebar isMobileMenuOpen={isMobileMenuOpen} onCloseMobileMenu={handleCloseMenu} />
         <div className="flex flex-col flex-1 min-w-0">
-          <main className="container flex-1 pt-[100px] xl:pl-[170px] xl:pr-[40px]">
+          <main className="container flex-1 pt-[60px] xl:pl-[170px] xl:pr-[40px]">
             <Routes>
               <Route path="/" element={<Profile />} />
               <Route path="/bans" element={<Bans />} />

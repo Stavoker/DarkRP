@@ -64,7 +64,7 @@ function Earners() {
             <p className="xl:max-w-[340px]">Total</p>
           </div>
 
-          <ul className="grid xl:gap-[35px] rounded-[15px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block shadow-neon">
+          <ul className="grid xl:gap-[35px] xl:rounded-[15px] gap-[14px] xl:mb-[80px] xl:p-[35px] p-[20px] xl:bg-background-block xl:shadow-neon">
             {earners.map((earner, index) => {
               const position = (currentPage - 1) * itemsPerPage + index + 1;
               return (

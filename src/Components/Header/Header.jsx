@@ -5,6 +5,14 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, loading, login, logout } = useAuth();
 
+  const handleToggleMenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onMenuClick) {
+      onMenuClick();
+    }
+  };
+
   const handleLogout = () => {
     logout();
     setIsOpen(false);
@@ -12,16 +20,16 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
 
   return (
     <header className="absolute z-10 top-0 left-0 right-0 bg-[#0D1322] xl:bg-background-main max-xl:shadow-neon">
-      <div className="flex items-center justify-between gap-[10px] px-[20px] pb-[5px] pt-[50px] xl:justify-end xl:px-[50px] xl:pt-[40px] xl:pb-[10px]">
+      <div className="flex items-center justify-between gap-[10px] px-[20px] py-[10px] xl:justify-end xl:px-[50px] xl:pt-[40px] xl:pb-[10px]">
         <button
-          onClick={onMenuClick}
+          onClick={handleToggleMenu}
           className="flex items-center justify-center w-[40px] h-[40px] xl:hidden"
           aria-label="Toggle menu"
+          type="button"
+          data-menu-toggle
         >
           {isMobileMenuOpen ? (
-            <svg className="w-[34px] h-[34px] text-accent-primary fill-none stroke-accent-primary filter-neon">
-              <use href="/img/sprite.svg#close" />
-            </svg>
+            <img src="/img/icons/close_menu.svg" alt="Menu" className="w-[24px] h-[24px]" />
           ) : (
             <img src="/img/icons/menu.svg" alt="Menu" className="w-[34px] h-[34px]" />
           )}
