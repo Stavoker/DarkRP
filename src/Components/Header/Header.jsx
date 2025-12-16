@@ -62,7 +62,7 @@ const Header = ({ onMenuClick }) => {
           ) : (
             <button
               onClick={login}
-              className="flex cursor-pointer p-2 items-center gap-[10px] text-text-primary xl:text-[22px] text-[16px] font-light hover:opacity-80 transition-opacity"
+              className="flex cursor-pointer p-2 items-center gap-[10px] text-text-primary xl:text-[22px] text-[16px] hover:opacity-80 transition-opacity bg-accent-primary font-medium rounded-[6px] px-[20px] py-[5px] uppercase"
             >
               Login
             </button>
