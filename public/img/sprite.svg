@@ -140,6 +140,9 @@
 <path fill="#2da172" style="fill: var(--color22, #2da172); stroke: var(--color3, #fff)" stroke="#fff" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.9091" d="M43.313 20.364h-28.445c-0.982 0-1.778 1.14-1.778 2.545v5.091c0 1.406 0.796 2.545 1.778 2.545h28.445c0.982 0 1.778-1.14 1.778-2.545v-5.091c0-1.406-0.796-2.545-1.778-2.545z"></path>
 <path fill="none" stroke="#acacac" style="stroke: var(--color23, #acacac)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.9091" d="M40.727 1.455v1.745c0 1.852 0.46 3.628 1.278 4.937s1.928 2.045 3.086 2.045c1.157 0 2.267 0.736 3.086 2.045s1.278 3.085 1.278 4.937v1.745"></path>
 </symbol>
+<symbol id="close" viewBox="0 0 24 24">
+<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+</symbol>
 <symbol id="gangs" viewBox="0 0 20 17">
 <mask id="path-1-inside-1_410_8850" fill="white">
 <path d="M20 16.4497L3.33333 0L0 3.28993L6.66667 9.86979L4.44444 12.0631C6.38028 14.132 8.8554 15.6356 11.599 16.4093C14.3426 17.183 17.2489 17.1969 20 16.4497Z"/>

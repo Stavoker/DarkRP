@@ -87,7 +87,7 @@ function Sidebar({ isMobileMenuOpen, onCloseMobileMenu }) {
   const sidebarIsOpen = isMobileMenuOpen || isOpen;
 
   const sidebarClasses = isMobileMenuOpen
-    ? `${SIDEBAR_BASE_CLASSES} w-full top-[66px] h-[calc(100vh-66px)] z-30 xl:hidden`
+    ? `${SIDEBAR_BASE_CLASSES} w-full top-[94px] h-[calc(100vh-94px)] z-30 xl:hidden`
     : `${SIDEBAR_BASE_CLASSES} ${isOpen ? 'w-[290px]' : 'w-[100px]'} h-screen max-h-[1080px] z-10 hidden xl:flex`;
 
   const handleLogoClick = () => {
