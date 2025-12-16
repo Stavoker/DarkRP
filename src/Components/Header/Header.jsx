@@ -20,7 +20,7 @@ const Header = ({ onMenuClick, isMobileMenuOpen }) => {
 
   return (
     <header className="absolute z-10 top-0 left-0 right-0 bg-[#0D1322] xl:bg-background-main max-xl:shadow-neon">
-      <div className="flex items-center justify-between gap-[10px] px-[20px] py-[10px] xl:justify-end xl:px-[50px] xl:pt-[40px] xl:pb-[10px]">
+      <div className="flex items-center justify-between gap-[10px] px-[20px] py-[10px] xl:justify-end xl:px-[50px] xl:pt-[30px] xl:pb-[20px]">
         <button
           onClick={handleToggleMenu}
           className="flex items-center justify-center w-[40px] h-[40px] xl:hidden"
